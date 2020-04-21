@@ -35,7 +35,7 @@ while(True):
         img2 = img
 
         for i in couleurs:
-                print(i)
+                #print(i)
                 template = cv2.imread(i, 0)
                 w, h = template.shape[::-1]
                 
@@ -62,7 +62,7 @@ while(True):
         print(total)
         if total!=0:
             for e in files:
-                print(e)
+                #print(e)
                 template = cv2.imread(e, 0)
                 w, h = template.shape[::-1]
                 res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED)
@@ -84,6 +84,7 @@ while(True):
         couples = []
         for coord in coords:
                 coord = coord.split(",")
+                print(coord)
                 print("x :"+str(coord[0])+" y :"+str(coord[1])+" value: "+coord[2])
                 xs.append((coord[0],coord[2]))
         xs.sort()
@@ -97,20 +98,20 @@ while(True):
                                 #couples.append((xs[i][0],xs[i-1][0],xs[i][1],xs[i-1][1]))
                                 
         #print(xs)
-        #print(couples)
+        print(couples)
         current_time = datetime.datetime.now()
-        add = "INSERT INTO ensemble VALUES(NULL,'"+str(current_time)+"')"
+        """add = "INSERT INTO ensemble VALUES(NULL,'"+str(current_time)+"')"
         cursor.execute(add)
         cnx.commit()
         
         query = ("SELECT id_ensemble FROM ensemble WHERE date = '%s'")
         cursor.execute(query,(str(current_time)))
-        
+        """
         for (id_ensemble) in cursor:
                 print(id_ensemble)
                 print("testetstetsefrd")
         
-        for i in couples:
+        """for i in couples:
                 if(len(i[1])>2):
                         #le truc est la couleur
                         print(i[1])
@@ -121,13 +122,14 @@ while(True):
                         add = "INSERT INTO carte VALUES(NULL,'"+i[0]+"','"+i[1]+"','flop',NULL)"
                         cursor.execute(add)
                         cnx.commit()
+                        """
         height , width , layers =  img.shape
         new_h=int(height/1.5)
         new_w=int(width/1.5)
 
         resize = cv2.resize(img, (new_w, new_h)) 
         
-        #cv2.imshow('Detected',resize[:,:,::-1])
+        cv2.imshow('Detected',resize[:,:,::-1])
         
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
